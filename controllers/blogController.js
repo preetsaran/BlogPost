@@ -8,7 +8,11 @@ const {
 //@access  private
 const createBlog = async (req, res) => {
 
+    // console.log(req.body);
+
     const errors = validationResult(req);
+
+    console.log(errors);
 
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -17,27 +21,29 @@ const createBlog = async (req, res) => {
     }
 
     const {
-        blogHeading,
-        blogTags,
-        description,
-        date
+        heading,
+        tags,
+        description
     } = req.body;
 
     try {
         const newBlog = new blogModel({
-            blogHeading,
-            blogTags,
+            heading,
+            tags,
             description,
-            date,
             user_id: req.user.id
         })
 
         const blog = await newBlog.save();
 
+        console.log(blog)
+
         res.status(200).json(blog);
     } catch (error) {
+
+        console.log(error.message)
         res.status(500).json({
-            error: error.message
+            msg: error.message
         });
     }
 
@@ -49,7 +55,6 @@ const createBlog = async (req, res) => {
 const getUserBlogs = async (req, res) => {
 
     try {
-
         const blogs = await blogModel.find({
             user_id: req.user.id
         }).sort({
@@ -105,6 +110,7 @@ const getBlog = async (req, res) => {
 //@desc    get all articles
 //@access  public 
 const getAllBlogs = async (req, res) => {
+
 
     try {
         const blogs = await blogModel.find().sort({
@@ -164,12 +170,12 @@ const deleteBlog = async (req, res) => {
 //@route   PATCH /api/v1/blogs/    
 //@desc    PATCH blog with unique blog_id
 //@access  private 
+
 const updateBlog = async (req, res) => {
 
     try {
-
         let blog = await blogModel.findOneAndUpdate({
-            _id: req.params.eid
+            _id: req.params.bid
         }, req.body, {
             new: true
         });

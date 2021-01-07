@@ -160,9 +160,11 @@ img {
 
 /* Grid */
 .grid-2 {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 2rem;
+  grid-gap: 2rem; */
+  display: flex;
+  flex-direction: column
 }
 
 .grid-3 {
@@ -443,4 +445,30 @@ table th {
     text-align: center;
     justify-content: center;
   }
+}
+
+.Blogs{
+  display: grid;
+  grid-gap:2rem;
+  justify-content:center;
+}
+
+.card.bg-light{
+  width: 61vw;
+  height: auto;
+  margin:3rem;
+}
+
+.fa-calendar{
+  margin-right: 5px;
+}
+
+
+.article-content{
+  display: flex;
+  flex-direction: column;
+}
+
+.updates{
+  margin-top: 1rem;
 }

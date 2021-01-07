@@ -12,10 +12,9 @@ const {
     updateBlog
 } = require('../controllers/blogController');
 const check = [
-    body('blogName', 'blogName is required').notEmpty(),
-    body('blogType', 'blogType is required').notEmpty(),
-    body('location', 'location is required').notEmpty(),
-    body('date', 'Date is required').notEmpty(),
+    body('heading', 'heading is required').notEmpty(),
+    body('description', 'blogType is required').notEmpty(),
+    body('tags', 'location is required').notEmpty()
 ]
 
 const router = express.Router();

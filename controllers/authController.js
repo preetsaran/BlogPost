@@ -27,6 +27,9 @@ const logIn = async (req, res) => {
         });
 
         if (!user) {
+
+            console.log('Invalid Credentials')
+
             return res.status(400).json({
                 msg: 'Invalid Credentials'
             })
@@ -44,7 +47,7 @@ const logIn = async (req, res) => {
             user: {
                 id: user.id
             }
-        }
+        } 
 
         jwt.sign(payload, config.get('jwtSecret'), {
             expiresIn: 3600 * 24
@@ -53,6 +56,7 @@ const logIn = async (req, res) => {
             res.status(200).json({
                 token,
                 id: user.id,
+                username: user.username,
                 name: user.name,
                 email: user.email,
                 success: 'user LoggedIn'

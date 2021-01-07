@@ -1,11 +1,11 @@
 import React,{useState,useContext} from 'react';
-import Events from '../events/Events';
-import EventContext from '../../context/event/eventContext'
+import Blogs from '../blogs/Blogs';
+import BlogContext from '../../context/blog/blogContext';
 
 function Home() {
    
-  const eventContext = useContext(EventContext);
-  const { filterEvent, clearFilter } = eventContext;
+  const blogContext = useContext(BlogContext);
+  const { filterBlog, clearFilter } = blogContext;
   
   const [Search, setSearch] = useState('');
 
@@ -19,20 +19,19 @@ function Home() {
       clearFilter();
     }
     else
-      filterEvent(e.target.value);
+      filterBlog(e.target.value);
     
   }
 
   return (
      
-    <div style={{ display: "flex", flexDirection: "column" }} >
+    <div className="grid-2"   >
       
       {(<input type="text" name="Search" value={Search} placeholder="Search" id=""
         onChange={handleSearch} />)}
+
+      <Blogs page={'Home'} />
       
-      <Events
-      page={'Home'} />
-              
     </div>
       
     );

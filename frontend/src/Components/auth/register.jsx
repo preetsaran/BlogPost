@@ -28,12 +28,13 @@ const Register = (props) => {
     
     const [user, setuser] = useState({
         name: '',
+        
         email: '',
         password: '',
         confirmPassword:''
     })
 
-    const { name , email , password , confirmPassword } = user;
+    const { name ,username,age,phone, email , password , confirmPassword } = user;
     
     const onChange = (e) => {   
         setuser({...user , [e.target.name]: e.target.value })
@@ -42,7 +43,8 @@ const Register = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        if (name === '' || password === '' || confirmPassword === '' || email === '') {
+        if (name === '' || password === '' || confirmPassword === '' || email === ''
+            || username === '' || age=== '' || phone==='') {
             setAlert('Please enter all fields', 'danger');
         }
         else if(password !== confirmPassword){
@@ -50,19 +52,9 @@ const Register = (props) => {
         }
         else {
 
-            await register({ name, email, password });
+            await register({ name, username, age , phone , email, password });
             
-            // if (res.err ) {
-            //     console.log(res.err);
-            // }
-            // else if( res.res && res.res.status === 200){
-            //     setAlert('User Registered', 'success');
-            //     setuser({name: '',
-            //     email: '',
-            //     password: '',
-            //     confirmPassword:''});
-            // }
-            
+
         }
     }
 
@@ -76,23 +68,36 @@ const Register = (props) => {
             <form onSubmit={onSubmit}>
                 
                 <div className="form-group">
-                    <label htmlFor="email">Name</label>
-                    <input type="text" name='name' value={name} placeholder='Name' onChange={onChange}/>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" name='name' value={name}  onChange={onChange}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="username">username</label>
+                    <input type="text" name='username' value={username} onChange={onChange}/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="age">Age</label>
+                    <input type="text" name='age' value={age} onChange={onChange}/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="phone">Phone</label>
+                    <input type="text" name='phone' value={phone}  onChange={onChange}/>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="email">Email Address</label>
-                    <input type="email" name='email' value={email} placeholder='email' onChange={onChange}/>
+                    <input type="email" name='email' value={email} onChange={onChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <input type="password" name='password' value={password} placeholder='password' onChange={onChange}/>
+                    <input type="password" name='password' value={password} onChange={onChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input type="password" name='confirmPassword' value={confirmPassword} placeholder='Confirm Password' onChange={onChange}/>
+                    <input type="password" name='confirmPassword' value={confirmPassword} onChange={onChange}/>
                 </div>
-
                 <input type="submit" value="Register" className="btn btn-primary btn-block"/>
             </form>
         </div>

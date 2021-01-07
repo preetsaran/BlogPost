@@ -1,12 +1,13 @@
-import React,{useEffect,useContext} from 'react';
-import Events from '../events/Events';
-import EventForm from '../events/EventForm';
+import React,{useEffect,useContext,useRef} from 'react';
+import Blogs from '../blogs/Blogs';
+import BlogForm from '../blogs/BlogForm';
 import AuthContext from '../../context/auth/authContext';
 
 function Profile() {
 
   const authContext = useContext(AuthContext);
-  
+  const myRef = useRef(null);
+
   useEffect(() => {
     if(localStorage.token)
       authContext.loadUser();
@@ -18,18 +19,15 @@ function Profile() {
      
     <div className="grid-2" style={{ display: "flex", flexDirection: "column" ,margin: "2rem" }} >
         
-        <div style={{ display: "flex" }}> 
-            
-          <EventForm />
-            
-          <div style={{ display: "flex", flexDirection: "column" }} >
-            <h2 style={{marginLeft: "14.7rem" , color: `var(--primary-color)` }}>Get Your Event Listed</h2>
-            <img src="./calendar.png" alt="" style={{ height: "40vh", width: '25vw', marginLeft: "15rem" }} />
-          </div>
-          
+        <div style={{ display: "flex" , justifyContent:"center"}}> 
+
+        <div>
+        <BlogForm ref={myRef}/>
+         </div>   
+      
         </div>
           
-      <Events
+      <Blogs myRef={myRef}
        page={'Profile'}/>
               
     </div>  

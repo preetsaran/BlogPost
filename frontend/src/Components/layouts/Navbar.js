@@ -1,7 +1,7 @@
 import React ,{useContext}  from 'react'
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
-import EventContext from '../../context/event/eventContext';
+import BlogContext from '../../context/blog/blogContext';
 import {Link} from 'react-router-dom'
 
 const Navbar = ({ title , icon }) => {
@@ -9,12 +9,12 @@ const Navbar = ({ title , icon }) => {
     const authContext = useContext(AuthContext);
     const { isAuthenticated, logout } = authContext;
     
-    const eventContext = useContext(EventContext);
-    const { clearEvents } = eventContext;
+    const blogContext = useContext(BlogContext);
+    const { clearBlogs } = blogContext;
 
     const LogOut = () => {
         logout();
-        clearEvents();
+        clearBlogs();
     }
     
     const authLinks = ( 
@@ -39,10 +39,11 @@ const Navbar = ({ title , icon }) => {
             
             <ul>      
             <Link to='/'> Home </Link>
-            <Link to='/about'> About </Link> 
+            {/* <Link to='/about'> About </Link> 
+            <Link to='/login'> login </Link>  */}
                 {isAuthenticated  ? authLinks : guestLinks}
 
-            </ul>
+            </ul>   
         </div>
     )
 } 
@@ -53,7 +54,7 @@ Navbar.propTypes = {
 }   
 
 Navbar.defaultProps = {
-    title: 'Event List',
+    title: 'Blogs',
     icon:  'fa fa-calendar'
 }
 

@@ -3,7 +3,13 @@ const mongoose = require("mongoose");
 const blogSchema = new mongoose.Schema({
     date: {
         type: Date,
-        required: [true, "Date is required field"]
+        default: Date.now()
+    },
+    heading: {
+        type: String
+    },
+    description: {
+        type: String
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,

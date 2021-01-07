@@ -8,7 +8,7 @@ import Navbar from './Components/layouts/Navbar';
 import Alerts from './Components/layouts/Alerts';
 import Register from './Components/auth/register';
 import Login from './Components/auth/login';
-import BlogState from './context/event/eventState';
+import BlogState from './context/blog/blogState';
 import AuthState from './context/auth/authState';
 import AlertState from './context/alert/alertState';
 import setAuthToken from './utilities/setAuthToken';
@@ -24,20 +24,20 @@ const App = () => {
     <AuthState>
       <BlogState>
         <AlertState>
-          <Router>
-            <React.Fragment>
-              <Navbar/>
-              <div className="contaner" style={{ margin: "5rem", marginTop: "1rem" }}>
+            <Router>
+              <React.Fragment>
+                <Navbar/>
+                <div className="contaner" style={{ margin: "5rem", marginTop: "1rem" }}>
                 <Alerts/>
                 <Switch>
-                  <Route exact path='/'  component={Home}/>
+                  <Route exact path='/' component={Home} />
                   <Route exact path='/about' component={About}/>
                   <Route exact path='/login' component={Login}/>
                   <Route exact path='/register' component={Register}/>
                   <PrivateRoute exact path='/profile' component={Profile}/>
                 </Switch>
-              </div>
-            </React.Fragment>
+                </div>
+              </React.Fragment>
           </Router>
         </AlertState>
       </BlogState>

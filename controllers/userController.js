@@ -48,7 +48,11 @@ const createUser = async (req, res) => {
         jwt.sign(payload, config.get('jwtSecret'), {
             expiresIn: 3600 * 24
         }, (err, token) => {
-            if (err) throw err;
+            if (err) {
+                res.status(400).json({
+                    msg: error.message
+                });
+            }
             res.status(200).json({
                 token
             });
@@ -56,7 +60,8 @@ const createUser = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        console.log("line63 ",error.message);
+
         if (error.code === 11000) {
             return res.status(400).json({
                 msg: 'user already exists'
