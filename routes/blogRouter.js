@@ -1,32 +1,38 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
-const { body } = require('express-validator');
-const { createEvent , getAllEvents ,getUserEvent,getEvent ,deleteEvent ,updateEvent} = require('../controllers/eventController');
+const {
+    body
+} = require('express-validator');
+const {
+    createBlog,
+    getAllBlogs,
+    getUserBlogs,
+    getBlog,
+    deleteBlog,
+    updateBlog
+} = require('../controllers/blogController');
 const check = [
-                body('eventName', 'eventName is required').notEmpty(),
-                body('eventType', 'eventType is required').notEmpty(),
-                body('location', 'location is required').notEmpty(),
-                body('date', 'Date is required').notEmpty(),
+    body('blogName', 'blogName is required').notEmpty(),
+    body('blogType', 'blogType is required').notEmpty(),
+    body('location', 'location is required').notEmpty(),
+    body('date', 'Date is required').notEmpty(),
 ]
 
 const router = express.Router();
 
 router
     .route('/')
-    .get(getAllEvents)
-    .post([auth, check], createEvent)
+    .get(getAllBlogs)
+    .post([auth, check], createBlog)
 
 router
-    .route('/user')
-    .get(auth , getUserEvent)
+    .route('/username')
+    .get(auth, getUserBlogs)
 
 router
-    .route('/:eid')
-    .get(auth, getEvent)
-    .delete(auth,deleteEvent)
-    .patch(auth,updateEvent)
-    
-    
+    .route('/:bid')
+    .get(auth, getBlog)
+    .delete(auth, deleteBlog)
+    .patch(auth, updateBlog)
+
 module.exports = router;
-
-// { <input type="hidden" name="goto_date" value="goto_date"></input> }

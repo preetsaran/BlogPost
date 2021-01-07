@@ -2,19 +2,24 @@ const userDb = require('../models/userModel')
 const bcrypt = require('bcrypt');
 const config = require('config');
 const jwt = require('jsonwebtoken');
-const {validationResult} = require('express-validator');
+const {
+    validationResult
+} = require('express-validator');
 
 const logIn = async (req, res) => {
 
     const errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
         return res.status(400).json({
             errors: errors.array()
         })
     }
 
-    let { email,password } = req.body;
+    let {
+        email,
+        password
+    } = req.body;
 
     try {
         let user = await userDb.findOne({
@@ -27,7 +32,7 @@ const logIn = async (req, res) => {
             })
         }
 
-        let isMatch = await bcrypt.compare(password, user.password) ;
+        let isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(404).json({
@@ -42,29 +47,29 @@ const logIn = async (req, res) => {
         }
 
         jwt.sign(payload, config.get('jwtSecret'), {
-            expiresIn: 3600*24
-        }, (err , token) => {
-            if (err) throw(err);
+            expiresIn: 3600 * 24
+        }, (err, token) => {
+            if (err) throw (err);
             res.status(200).json({
                 token,
                 id: user.id,
                 name: user.name,
-                email:user.email,
+                email: user.email,
                 success: 'user LoggedIn'
             });
         })
-        
-    }
-    catch (error) {
-        console.log('error.message');
-        res.status(500).send('Server Error');
+
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        });
     }
 
 }
 
 const authenticatedUser = async (req, res) => {
 
-    let user = await userDb.findById(req.user.id ).select('-password');
+    let user = await userDb.findById(req.user.id).select('-password');
     res.send(user);
 
 }
